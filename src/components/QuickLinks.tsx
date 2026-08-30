@@ -49,7 +49,7 @@ export default function QuickLinks() {
         </nav>
 
         <span
-          className="text-[14px] font-semibold leading-[21px] text-copy"
+          className="resume-label font-semibold text-copy"
           title="Resume link coming soon"
         >
           Resume

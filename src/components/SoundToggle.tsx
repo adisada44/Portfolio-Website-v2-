@@ -19,7 +19,7 @@ export default function SoundToggle({
       }}
       aria-pressed={isSoundOn}
       aria-label={isSoundOn ? 'Turn off interface sounds' : 'Turn on interface sounds'}
-      className="interactive-control flex cursor-pointer items-center gap-2 text-[12px] font-medium leading-[21px] text-copy"
+      className="sound-control interactive-control flex cursor-pointer items-center gap-2 font-medium text-copy"
     >
       <span aria-hidden="true">
         {isSoundOn ? 'Turn off sound' : 'Turn on sound'}

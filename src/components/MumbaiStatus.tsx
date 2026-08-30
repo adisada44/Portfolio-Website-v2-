@@ -209,7 +209,7 @@ export default function MumbaiStatus() {
     <div className="weather-status" title={weatherDetails}>
       <div className="flex items-center gap-2">
         <WeatherIcon size={24} weight="regular" aria-hidden="true" />
-        <p className="text-[14px] font-medium leading-[21px] text-copy">
+        <p className="weather-copy font-medium text-copy">
           {messageParts[0]}
           <strong className="font-bold text-ink">MUMBAI</strong>
           {messageParts[1]}
@@ -218,7 +218,7 @@ export default function MumbaiStatus() {
       <span className="weather-separator" aria-hidden="true" />
       <time
         dateTime={now.toISOString()}
-        className="tabular-nums text-[14px] font-medium leading-[21px] text-ink"
+        className="weather-time tabular-nums font-medium text-ink"
         aria-label={`Current time in Mumbai: ${time}`}
       >
         {time}

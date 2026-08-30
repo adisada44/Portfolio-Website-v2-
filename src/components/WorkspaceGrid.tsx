@@ -1,22 +1,6 @@
-import MumbaiStatus from './MumbaiStatus';
-import SoundToggle from './SoundToggle';
-
-type WorkspaceGridProps = {
-  isSoundOn: boolean;
-  onSoundToggle: () => void;
-};
-
-export default function WorkspaceGrid({
-  isSoundOn,
-  onSoundToggle,
-}: WorkspaceGridProps) {
+export default function WorkspaceGrid() {
   return (
     <main className="workspace-grid">
-      <header className="workspace-utilities">
-        <MumbaiStatus />
-        <SoundToggle isSoundOn={isSoundOn} onToggle={onSoundToggle} />
-      </header>
-
       <section className="workspace-status">
         <div className="workspace-empty-state">
           <span className="hammer-motion" aria-hidden="true">
@@ -25,7 +9,7 @@ export default function WorkspaceGrid({
 
           <div className="workspace-empty-content">
             <div className="workspace-story">
-              <p className="text-[16px] font-medium leading-[21px] text-copy">
+              <p className="workspace-story-copy font-medium text-copy">
                 Existing stories are being improved. New stories are being crafted
               </p>
 
@@ -42,13 +26,13 @@ export default function WorkspaceGrid({
                     <div className="progress-runner" aria-hidden="true" />
                   </div>
                 </div>
-                <p className="text-[11px] font-normal leading-[15px] text-copy">
+                <p className="progress-caption font-normal text-copy">
                   17 days since redesign
                 </p>
               </div>
             </div>
 
-            <div className="project-link-row text-[14px] font-medium leading-[21px] text-copy">
+            <div className="project-link-row font-medium text-copy">
               <span>You can check out existing projects</span>
               <a
                 href="https://www.behance.net/adityasadashiv"
