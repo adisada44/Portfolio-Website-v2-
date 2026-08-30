@@ -1,5 +1,4 @@
 import MumbaiStatus from './MumbaiStatus';
-import QuickLinks from './QuickLinks';
 import SoundToggle from './SoundToggle';
 
 type WorkspaceGridProps = {
@@ -72,8 +71,6 @@ export default function WorkspaceGrid({
           </div>
         </div>
       </section>
-
-      <QuickLinks />
     </main>
   );
 }

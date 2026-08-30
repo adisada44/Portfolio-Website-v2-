@@ -54,62 +54,65 @@
     display: flex;
     min-height: 100svh;
     flex-direction: column;
-    gap: 8px;
   }
 
   .profile-rail {
     position: relative;
     display: flex;
-    min-height: max(640px, 100svh);
+    min-height: 0;
     width: 100%;
     flex-shrink: 0;
     flex-direction: column;
-    padding: 24px 20px;
+    padding: clamp(48px, 8vw, 80px) clamp(16px, 4vw, 28px);
   }
 
   .profile-content {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    gap: 120px;
+    gap: clamp(64px, 10vw, 88px);
   }
 
   .workspace-shell {
     position: relative;
     min-width: 0;
-    min-height: max(640px, 100svh);
-    flex: 1;
+    min-height: 0;
+    width: 100%;
   }
 
   .workspace-grid {
     position: relative;
-    display: grid;
-    min-height: inherit;
-    height: 100%;
-    place-items: center;
-    overflow: hidden;
-    padding: 92px 28px 88px;
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    padding: clamp(20px, 4vw, 28px) clamp(16px, 4vw, 28px) 0;
   }
 
   .workspace-utilities {
-    position: absolute;
+    position: relative;
     z-index: 10;
-    top: 24px;
-    right: 28px;
-    left: 28px;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: flex-end;
-    gap: clamp(16px, 3vw, 40px);
+    gap: 10px clamp(16px, 3vw, 40px);
     border-bottom: 1px solid var(--color-stroke);
-    padding-bottom: 16px;
+    padding-bottom: clamp(12px, 2vw, 16px);
+  }
+
+  .workspace-utilities > .weather-status {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+  }
+
+  .workspace-utilities > .interactive-control {
+    grid-column: 2;
+    grid-row: 1;
   }
 
   .workspace-status {
     z-index: 1;
-    grid-area: 1 / 1;
-    width: min(100%, 760px);
-    padding-inline: 20px;
+    width: 100%;
+    padding: clamp(64px, 10vw, 112px) clamp(4px, 2vw, 20px);
     text-align: center;
   }
 
@@ -118,7 +121,7 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 28px;
+    gap: clamp(24px, 4vw, 28px);
   }
 
   .workspace-empty-content {
@@ -126,7 +129,7 @@
     width: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 72px;
+    gap: clamp(48px, 8vw, 72px);
   }
 
   .workspace-story {
@@ -134,7 +137,7 @@
     width: min(100%, 560px);
     flex-direction: column;
     align-items: center;
-    gap: 18px;
+    gap: clamp(16px, 3vw, 18px);
   }
 
   .workspace-story > p { text-wrap: balance; }
@@ -144,19 +147,22 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
+    max-width: min(100%, 360px);
+    flex-wrap: wrap;
     text-wrap: balance;
   }
 
   .workspace-footer {
-    position: fixed;
+    position: relative;
     z-index: 10;
-    right: 28px;
-    bottom: 24px;
-    left: 28px;
     display: flex;
+    width: auto;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: clamp(12px, 2vw, 16px);
+    margin-top: auto;
+    padding: clamp(32px, 6vw, 56px) clamp(16px, 4vw, 28px)
+      calc(16px + env(safe-area-inset-bottom, 0px));
   }
 
   .workspace-footer-divider {
@@ -169,7 +175,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 32px;
+    gap: clamp(18px, 5vw, 32px);
   }
 
   .weather-status {
@@ -177,6 +183,9 @@
     min-width: 0;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
   }
 
   .weather-status p { text-wrap: balance; }
@@ -271,18 +280,18 @@
   .mascot-control {
     position: fixed;
     z-index: 50;
-    bottom: 0;
-    left: 0;
-    width: 110px;
-    height: 137px;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    left: env(safe-area-inset-left, 0px);
+    width: 84px;
+    height: 108px;
   }
 
   .mascot-button {
     position: absolute;
     z-index: 2;
     inset: 0;
-    width: 110px;
-    height: 137px;
+    width: 84px;
+    height: 108px;
     cursor: pointer;
     transform-origin: bottom left;
     transition: transform 180ms var(--ease-out);
@@ -308,12 +317,14 @@
   }
 
   .accessibility-panel {
-    position: absolute;
+    position: fixed;
     z-index: 1;
-    bottom: 18px;
-    left: 92px;
+    right: 12px;
+    bottom: calc(190px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
     display: flex;
-    width: 280px;
+    width: auto;
+    max-height: calc(100svh - 206px);
     flex-direction: column;
     gap: 20px;
     border: 1px solid #e1e1e0;
@@ -321,6 +332,7 @@
     background: #ffffff;
     box-shadow: 0 14px 40px rgb(17 17 17 / 10%);
     padding: 16px 24px;
+    overflow-y: auto;
     transform-origin: bottom left;
   }
 
@@ -494,7 +506,7 @@ html[data-text-size="large"] .workspace-utilities button {
   line-height: 1.6;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .app-shell {
     height: 100svh;
     overflow: hidden;
@@ -505,16 +517,23 @@ html[data-text-size="large"] .workspace-utilities button {
     height: 100%;
     min-height: 0;
     grid-template-columns: clamp(280px, 34vw, 343px) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "profile workspace"
+      "profile footer";
   }
 
   .profile-rail {
+    grid-area: profile;
     min-height: 0;
     height: 100%;
     overflow: hidden;
+    padding: 24px 20px;
   }
 
   .profile-content {
+    flex: 1;
+    gap: 120px;
     min-height: 0;
     overflow-y: auto;
     padding-right: 12px;
@@ -523,129 +542,87 @@ html[data-text-size="large"] .workspace-utilities button {
 
   .profile-content::-webkit-scrollbar { display: none; }
 
-  .workspace-shell,
-  .workspace-grid {
+  .workspace-shell {
+    grid-area: workspace;
     min-height: 0;
     height: 100%;
   }
 
-  .workspace-footer {
-    left: calc(clamp(280px, 34vw, 343px) + 36px);
-  }
-}
-
-@media (max-width: 980px) and (min-width: 768px) {
-  .workspace-grid { padding-inline: 20px; }
-
-  .workspace-utilities,
-  .workspace-footer {
-    right: 20px;
-  }
-
-  .workspace-utilities { left: 20px; }
-
-  .workspace-footer {
-    left: calc(clamp(280px, 34vw, 343px) + 28px);
-  }
-
-  .workspace-utilities { gap: 16px; }
-
-  .weather-status {
-    gap: 8px;
-    font-size: 12px;
-  }
-
-  .weather-status p {
-    font-size: 12px;
-    line-height: 18px;
-  }
-}
-
-@media (max-width: 767px) {
-  .profile-content { gap: 88px; }
-
   .workspace-grid {
-    min-height: max(640px, 100svh);
-    padding: 112px 16px 86px;
+    display: grid;
+    min-height: 0;
+    height: 100%;
+    place-items: center;
+    overflow: hidden;
+    padding: 92px 28px 24px;
   }
 
   .workspace-utilities {
-    top: 20px;
-    right: 16px;
-    left: 16px;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 10px 16px;
-    padding-bottom: 12px;
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    left: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: clamp(16px, 3vw, 40px);
+    padding-bottom: 16px;
   }
 
-  .workspace-utilities > .weather-status {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: center;
-  }
-
+  .workspace-utilities > .weather-status,
   .workspace-utilities > .interactive-control {
-    grid-column: 2;
-    grid-row: 1;
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: auto;
   }
 
-  .workspace-status { padding-inline: 4px; }
-  .workspace-empty-content { gap: 56px; }
-  .progress-track { max-width: calc(100vw - 48px); }
+  .workspace-status {
+    grid-area: 1 / 1;
+    width: min(100%, 760px);
+    padding: 0 20px;
+  }
 
   .project-link-row {
-    max-width: min(100%, 320px);
-    flex-wrap: wrap;
+    max-width: none;
+    flex-wrap: nowrap;
   }
 
   .workspace-footer {
-    right: 16px;
-    bottom: 16px;
-    left: 16px;
-    gap: 12px;
+    grid-area: footer;
+    gap: 16px;
+    margin: 0 28px;
+    padding: 0 0 24px;
   }
 
-  .quick-links-row { gap: 24px; }
+  .quick-links-row { gap: 32px; }
+
+  .weather-status {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    text-align: left;
+  }
 
   .mascot-control {
-    bottom: 66px;
-    width: 84px;
-    height: 108px;
+    bottom: 0;
+    left: 0;
+    width: 110px;
+    height: 137px;
   }
 
   .mascot-button {
-    width: 84px;
-    height: 108px;
+    width: 110px;
+    height: 137px;
   }
 
   .accessibility-panel {
-    position: fixed;
-    right: 12px;
-    bottom: 180px;
-    left: 12px;
-    width: auto;
-    max-height: calc(100svh - 196px);
-    overflow-y: auto;
+    position: absolute;
+    right: auto;
+    bottom: 18px;
+    left: 92px;
+    width: 280px;
+    max-height: none;
+    overflow: visible;
   }
-}
-
-@media (max-width: 420px) {
-  .profile-rail { padding-inline: 16px; }
-  .workspace-empty-state { gap: 24px; }
-  .workspace-empty-content { gap: 48px; }
-  .workspace-story { gap: 16px; }
-  .quick-links-row { gap: 18px; }
-  .quick-links-row nav { gap: 18px; }
-
-  .weather-status {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px 10px;
-    text-align: center;
-  }
-
-  .weather-status > div { justify-content: center; }
 }
 
 @media (min-width: 1600px) {

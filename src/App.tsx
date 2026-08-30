@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import AccessibilityMascot from './components/AccessibilityMascot';
 import ProfileRail from './components/ProfileRail';
+import QuickLinks from './components/QuickLinks';
 import WorkspaceGrid from './components/WorkspaceGrid';
 
 type WebkitWindow = typeof window & {
@@ -86,14 +87,15 @@ function App() {
   return (
     <div className="app-shell min-h-dvh bg-canvas text-ink">
       <div className="app-layout">
-        <ProfileRail />
-
         <div className="workspace-shell">
           <WorkspaceGrid
             isSoundOn={isSoundOn}
             onSoundToggle={toggleSound}
           />
         </div>
+
+        <ProfileRail />
+        <QuickLinks />
       </div>
 
       <AccessibilityMascot
