@@ -49,7 +49,9 @@ const curlFrames = [
   '/mascot/Curl_03.png',
   '/mascot/Curl_02.png',
 ] as const;
+const uniqueCurlFrames = [...new Set(curlFrames)];
 const attentionFrame = '/mascot/attentive.png';
+const mascotFrames = [...uniqueCurlFrames, attentionFrame];
 
 function loadPreferences() {
   try {
@@ -68,6 +70,8 @@ export default function AccessibilityMascot({
 }: AccessibilityMascotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [frameIndex, setFrameIndex] = useState(0);
+  const [isFirstFrameReady, setIsFirstFrameReady] = useState(false);
+  const [areAllFramesReady, setAreAllFramesReady] = useState(false);
   const [preferences, setPreferences] = useState(loadPreferences);
   const [systemReducedMotion, setSystemReducedMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -79,19 +83,35 @@ export default function AccessibilityMascot({
   const controlRef = useRef<HTMLDivElement>(null);
   const mascotRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const decodedFramesRef = useRef(new Set<string>());
 
   const motionIsReduced = preferences.reduceMotion || systemReducedMotion;
-  const shouldLoop = !isOpen && !motionIsReduced && isPageVisible;
+  const shouldLoop =
+    areAllFramesReady && !isOpen && !motionIsReduced && isPageVisible;
 
-  useEffect(() => {
-    const images = [...new Set([...curlFrames, attentionFrame])].map((src) => {
-      const image = new Image();
-      image.src = src;
-      return image;
-    });
+  const markFrameReady = useCallback(
+    (src: string, image: HTMLImageElement) => {
+      if (decodedFramesRef.current.has(src)) return;
 
-    return () => images.forEach((image) => (image.src = ''));
-  }, []);
+      const finish = () => {
+        if (decodedFramesRef.current.has(src)) return;
+        decodedFramesRef.current.add(src);
+
+        if (src === curlFrames[0]) setIsFirstFrameReady(true);
+        if (decodedFramesRef.current.size === mascotFrames.length) {
+          setAreAllFramesReady(true);
+        }
+      };
+
+      if (typeof image.decode !== 'function') {
+        finish();
+        return;
+      }
+
+      void image.decode().then(finish, finish);
+    },
+    [],
+  );
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -197,7 +217,8 @@ export default function AccessibilityMascot({
     immediate: motionIsReduced || !panelMotionAllowed,
   });
 
-  const currentFrame = isOpen ? attentionFrame : curlFrames[frameIndex];
+  const activeFrame =
+    areAllFramesReady && isOpen ? attentionFrame : curlFrames[frameIndex];
 
   return (
     <div
@@ -294,14 +315,27 @@ export default function AccessibilityMascot({
         onClick={onMascotActivate}
         onKeyDown={onMascotKeyDown}
       >
-        <span className="mascot-art" aria-hidden="true">
-          <img
-            src={currentFrame}
-            alt=""
-            className="mascot-pose"
-            draggable="false"
-            decoding="async"
-          />
+        <span
+          className="mascot-art"
+          data-ready={isFirstFrameReady}
+          aria-hidden="true"
+        >
+          {mascotFrames.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              className={
+                src === activeFrame
+                  ? 'mascot-pose is-visible'
+                  : 'mascot-pose'
+              }
+              draggable="false"
+              decoding="async"
+              fetchPriority={src === curlFrames[0] ? 'high' : 'auto'}
+              onLoad={(event) => markFrameReady(src, event.currentTarget)}
+            />
+          ))}
         </span>
       </button>
     </div>

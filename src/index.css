@@ -352,14 +352,23 @@
     height: 100%;
   }
 
-  .mascot-art { overflow: hidden; }
+  .mascot-art {
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 160ms var(--ease-out);
+  }
+
+  .mascot-art[data-ready="true"] { opacity: 1; }
 
   .mascot-pose {
     object-fit: contain;
     object-position: center bottom;
+    opacity: 0;
     pointer-events: none;
     user-select: none;
   }
+
+  .mascot-pose.is-visible { opacity: 1; }
 
   .accessibility-panel {
     position: fixed;

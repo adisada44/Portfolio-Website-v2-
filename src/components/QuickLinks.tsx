@@ -48,12 +48,15 @@ export default function QuickLinks() {
           ))}
         </nav>
 
-        <span
-          className="resume-label font-semibold text-copy"
-          title="Resume link coming soon"
+        <a
+          href="https://docs.google.com/document/d/1TsPbPC82Y_QkZVArYMhikfcYzLpCDpH88zBHZkCwEl0/edit?usp=sharing"
+          target="_blank"
+          rel="noreferrer noopener"
+          className="link-hover resume-label font-semibold text-copy"
+          aria-label="Open Aditya Sadashiv's resume in Google Docs"
         >
           Resume
-        </span>
+        </a>
       </div>
     </footer>
   );
