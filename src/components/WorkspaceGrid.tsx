@@ -26,7 +26,7 @@ export default function WorkspaceGrid() {
                     <div className="progress-runner" aria-hidden="true" />
                   </div>
                 </div>
-                <p className="progress-caption font-normal text-copy">
+                <p className="progress-caption font-medium text-copy">
                   17 days since redesign
                 </p>
               </div>
@@ -38,7 +38,7 @@ export default function WorkspaceGrid() {
                 href="https://www.behance.net/adityasadashiv"
                 target="_blank"
                 rel="noreferrer noopener"
-                className="link-hover work-link flex items-center gap-px font-bold text-ink"
+                className="link-hover work-link flex items-center gap-px font-semibold text-copy"
               >
                 <span>here</span>
                 <span

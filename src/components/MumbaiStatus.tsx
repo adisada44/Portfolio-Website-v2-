@@ -39,14 +39,6 @@ type OpenMeteoResponse = {
   };
 };
 
-const timeFormatter = new Intl.DateTimeFormat('en-GB', {
-  timeZone: MUMBAI_TIME_ZONE,
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hourCycle: 'h23',
-});
-
 const hourFormatter = new Intl.DateTimeFormat('en-GB', {
   timeZone: MUMBAI_TIME_ZONE,
   hour: '2-digit',
@@ -146,7 +138,7 @@ export default function MumbaiStatus() {
   const [weather, setWeather] = useState<MumbaiWeather | null>(null);
 
   useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 1000);
+    const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
   }, []);
 
@@ -193,7 +185,6 @@ export default function MumbaiStatus() {
     };
   }, []);
 
-  const time = timeFormatter.format(now);
   const hour = Number(hourFormatter.format(now));
   const description = useMemo(
     () => weatherDescription(hour, weather),
@@ -208,21 +199,18 @@ export default function MumbaiStatus() {
   return (
     <div className="weather-status" title={weatherDetails}>
       <div className="flex items-center gap-2">
-        <WeatherIcon size={24} weight="regular" aria-hidden="true" />
+        <WeatherIcon
+          size={24}
+          weight="regular"
+          className="text-copy"
+          aria-hidden="true"
+        />
         <p className="weather-copy font-medium text-copy">
           {messageParts[0]}
-          <strong className="font-bold text-ink">MUMBAI</strong>
+          <span className="font-medium text-copy">Mumbai</span>
           {messageParts[1]}
         </p>
       </div>
-      <span className="weather-separator" aria-hidden="true" />
-      <time
-        dateTime={now.toISOString()}
-        className="weather-time tabular-nums font-medium text-ink"
-        aria-label={`Current time in Mumbai: ${time}`}
-      >
-        {time}
-      </time>
     </div>
   );
 }

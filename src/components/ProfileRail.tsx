@@ -23,7 +23,7 @@ const InlineLink = ({ children, href }: InlineLinkProps) => (
 export function ProfileBio() {
   return (
     <section className="profile-bio space-y-4" aria-labelledby="profile-name">
-      <h1 id="profile-name" className="profile-name font-bold leading-[1.1]">
+      <h1 id="profile-name" className="profile-name font-semibold leading-[1.1]">
         Aditya Sadashiv
       </h1>
       <p className="profile-bio-copy font-medium text-copy">
@@ -47,7 +47,7 @@ export function ProfileInterests() {
           <InlineLink href="https://www.optimas.ai/">Optimas.ai INC</InlineLink>
         </p>
         <p>
-          Dabbling with <InlineLink href="https://rive.app/">RIVE</InlineLink>
+          Dabbling with <InlineLink href="https://threejs.org/">Three.js</InlineLink>
         </p>
         <p>
           Currently reading about{' '}
