@@ -7,6 +7,7 @@ import { CloudRain } from '@phosphor-icons/react/dist/csr/CloudRain';
 import { CloudSun } from '@phosphor-icons/react/dist/csr/CloudSun';
 import { MoonStars } from '@phosphor-icons/react/dist/csr/MoonStars';
 import { Sun } from '@phosphor-icons/react/dist/csr/Sun';
+import { SunHorizon } from '@phosphor-icons/react/dist/csr/SunHorizon';
 
 const MUMBAI_TIME_ZONE = 'Asia/Kolkata';
 const WEATHER_REFRESH_MS = 15 * 60 * 1000;
@@ -23,9 +24,11 @@ type MumbaiWeather = {
 type WeatherKind =
   | 'clear-day'
   | 'clear-night'
-  | 'cloud-day'
-  | 'cloud-night'
-  | 'cloud'
+  | 'sunrise'
+  | 'sunset'
+  | 'partly-cloudy-day'
+  | 'partly-cloudy-night'
+  | 'cloudy'
   | 'fog'
   | 'rain'
   | 'storm';
@@ -62,12 +65,26 @@ function timeBasedFallback(hour: number) {
   return 'A deep monsoon night has settled over Mumbai.';
 }
 
+function clearSkyKind(hour: number): WeatherKind {
+  if (hour >= 5 && hour < 8) return 'sunrise';
+  if (hour >= 17 && hour < 20) return 'sunset';
+  if (hour < 6 || hour >= 20) return 'clear-night';
+  return 'clear-day';
+}
+
+function fallbackKind(hour: number): WeatherKind {
+  if (hour >= 5 && hour < 8) return 'sunrise';
+  if (hour >= 17 && hour < 20) return 'sunset';
+  if (hour < 6 || hour >= 20) return 'partly-cloudy-night';
+  return 'partly-cloudy-day';
+}
+
 function weatherDescription(hour: number, weather: MumbaiWeather | null) {
   const isNight = hour < 6 || hour >= 20;
   if (!weather) {
     return {
       message: timeBasedFallback(hour),
-      kind: isNight ? ('cloud-night' as const) : ('cloud-day' as const),
+      kind: fallbackKind(hour),
     };
   }
 
@@ -103,10 +120,19 @@ function weatherDescription(hour: number, weather: MumbaiWeather | null) {
     };
   }
 
-  if (weatherCode >= 2 || cloudCover >= 55) {
+  if (weatherCode === 3 || cloudCover >= 85) {
     return {
       message: timeBasedFallback(hour),
-      kind: isNight ? ('cloud-night' as const) : ('cloud-day' as const),
+      kind: 'cloudy' as const,
+    };
+  }
+
+  if (weatherCode === 2 || cloudCover >= 55) {
+    return {
+      message: timeBasedFallback(hour),
+      kind: isNight
+        ? ('partly-cloudy-night' as const)
+        : ('partly-cloudy-day' as const),
     };
   }
 
@@ -118,16 +144,18 @@ function weatherDescription(hour: number, weather: MumbaiWeather | null) {
   else if (hour < 21) message = 'The Mumbai evening is clearing up.';
   return {
     message,
-    kind: isNight ? ('clear-night' as const) : ('clear-day' as const),
+    kind: clearSkyKind(hour),
   };
 }
 
 const weatherIcons: Record<WeatherKind, typeof Cloud> = {
   'clear-day': Sun,
   'clear-night': MoonStars,
-  'cloud-day': CloudSun,
-  'cloud-night': CloudMoon,
-  cloud: Cloud,
+  sunrise: SunHorizon,
+  sunset: SunHorizon,
+  'partly-cloudy-day': CloudSun,
+  'partly-cloudy-night': CloudMoon,
+  cloudy: Cloud,
   fog: CloudFog,
   rain: CloudRain,
   storm: CloudLightning,

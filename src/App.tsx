@@ -3,7 +3,6 @@ import AccessibilityMascot from './components/AccessibilityMascot';
 import MumbaiStatus from './components/MumbaiStatus';
 import { ProfileBio, ProfileInterests } from './components/ProfileRail';
 import QuickLinks from './components/QuickLinks';
-import SoundToggle from './components/SoundToggle';
 import WorkspaceGrid from './components/WorkspaceGrid';
 
 type WebkitWindow = typeof window & {
@@ -89,10 +88,6 @@ function App() {
   return (
     <div className="app-shell min-h-dvh bg-canvas text-ink">
       <div className="app-layout">
-        <div className="sound-region">
-          <SoundToggle isSoundOn={isSoundOn} onToggle={toggleSound} />
-        </div>
-
         <ProfileBio />
 
         <div className="workspace-shell">

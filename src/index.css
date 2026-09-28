@@ -56,13 +56,6 @@
     flex-direction: column;
   }
 
-  .sound-region {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    padding: clamp(20px, 4vw, 28px) clamp(16px, 4vw, 28px) 0;
-  }
-
   .profile-bio,
   .profile-interests {
     display: flex;
@@ -229,11 +222,6 @@
     line-height: clamp(18px, 2.2vw, 21px);
   }
 
-  .sound-control {
-    font-size: 14px;
-    line-height: 21px;
-  }
-
   .link-hover,
   .quick-link {
     transition: color 180ms ease;
@@ -264,19 +252,6 @@
     position: relative;
     background-color: currentColor;
     transition: transform 180ms var(--ease-out);
-  }
-
-  .sound-toggle-icon > svg {
-    position: absolute;
-    inset: 0;
-    transform: scale(0.94) rotate(-6deg);
-    opacity: 0;
-    transition: transform 180ms var(--ease-out), opacity 140ms ease;
-  }
-
-  .sound-toggle-icon > svg.is-visible {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
   }
 
   .progress-fill { position: relative; }
@@ -546,8 +521,7 @@ html[data-focus="enhanced"] button:focus-visible {
 html[data-text-size="large"] .profile-bio p,
 html[data-text-size="large"] .profile-interests p,
 html[data-text-size="large"] .workspace-status p,
-html[data-text-size="large"] .weather-status,
-html[data-text-size="large"] .sound-region button {
+html[data-text-size="large"] .weather-status {
   font-size: 16px;
   line-height: 1.6;
 }
@@ -633,20 +607,11 @@ html[data-text-size="large"] .sound-region button {
     padding: 92px 28px 24px;
   }
 
-  .sound-region {
-    position: absolute;
-    z-index: 20;
-    top: 24px;
-    right: 28px;
-    width: auto;
-    padding: 0;
-  }
-
   .weather-region {
     position: absolute;
     z-index: 20;
     top: 24px;
-    right: clamp(190px, 16vw, 220px);
+    right: 28px;
     min-height: 0;
     width: auto;
     padding: 0;
@@ -700,11 +665,6 @@ html[data-text-size="large"] .sound-region button {
     line-height: 21px;
   }
 
-  .sound-control {
-    font-size: 14px;
-    line-height: 21px;
-  }
-
   .mascot-control {
     bottom: 0;
     left: 0;
@@ -738,8 +698,7 @@ html[data-text-size="large"] .sound-region button {
 
   .quick-link-glyph,
   .external-link-icon,
-  .mascot-button,
-  .sound-toggle-icon > svg {
+  .mascot-button {
     transform: none !important;
   }
 }
@@ -751,7 +710,6 @@ html[data-user-motion="reduced"] .hammer-icon {
 
 html[data-user-motion="reduced"] .quick-link-glyph,
 html[data-user-motion="reduced"] .external-link-icon,
-html[data-user-motion="reduced"] .mascot-button,
-html[data-user-motion="reduced"] .sound-toggle-icon > svg {
+html[data-user-motion="reduced"] .mascot-button {
   transform: none !important;
 }
