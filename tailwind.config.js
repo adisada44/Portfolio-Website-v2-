@@ -8,12 +8,12 @@ export default {
     extend: {
       colors: {
         'homepage-main-light': '#FAF9F6',
-        'text-main': '#111111',
+        'text-main': '#303030',
         'text-sec': '#666666',
         'stroke-gray': '#E4E4E4',
       },
       fontFamily: {
-        sans: ['"Noto Sans"', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       },
     },
   },

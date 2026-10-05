@@ -2,13 +2,13 @@
 
 @theme {
   --color-canvas: #faf9f6;
-  --color-ink: #111111;
+  --color-ink: #303030;
   --color-copy: #666666;
   --color-stroke: #e4e4e4;
   --color-link-hover: #4ac29a;
   --color-progress-start: #bdfff3;
   --color-progress-end: #4ac29a;
-  --font-sans: "Noto Sans Display", "Noto Sans", sans-serif;
+  --font-sans: "Inter", sans-serif;
 }
 
 :root {
@@ -29,7 +29,7 @@
     background: var(--color-canvas);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -66,33 +66,119 @@
   }
 
   .profile-bio {
+    gap: 16px;
     padding: clamp(32px, 6vw, 56px) clamp(20px, 6vw, 48px) 0;
   }
 
   .profile-interests {
+    gap: 16px;
     padding: clamp(48px, 8vw, 72px) clamp(20px, 6vw, 48px) 0;
   }
 
+  .profile-identity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .profile-avatar {
+    display: block;
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
+    border-radius: 4px;
+  }
+
+  .profile-identity-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    text-align: left;
+  }
+
   .profile-name {
-    font-size: clamp(15px, 1.75vw, 16px);
+    color: var(--color-ink);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .profile-role {
+    color: var(--color-copy);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.1;
   }
 
   .profile-bio-copy {
     width: min(100%, 480px);
-    font-size: clamp(13px, 1.55vw, 14px);
-    line-height: clamp(21px, 2.8vw, 24.5px);
+    color: var(--color-copy);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 25px;
     text-wrap: balance;
   }
 
   .profile-interests-list {
+    display: flex;
     width: min(100%, 520px);
+    flex-direction: column;
     align-items: center;
-    font-size: clamp(12.5px, 1.55vw, 14px);
-    line-height: clamp(19px, 2.4vw, 21px);
+    gap: 64px;
+    color: var(--color-copy);
+  }
+
+  .profile-experience {
+    display: flex;
+    width: min(100%, 319px);
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+
+  .profile-experience-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .profile-experience-role,
+  .profile-interest-heading {
+    color: var(--color-copy);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+  }
+
+  .profile-experience-period,
+  .profile-experience-company,
+  .profile-interest-note {
+    color: var(--color-copy);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  .profile-interest-groups {
+    display: flex;
+    width: min(100%, 319px);
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+  }
+
+  .profile-interest-item {
+    display: flex;
+    flex-direction: column;
   }
 
   .profile-divider {
+    height: 1px;
     width: min(100%, 360px);
+    background: var(--color-stroke);
   }
 
   .workspace-shell {
@@ -148,6 +234,7 @@
 
   .progress-caption {
     font-size: clamp(10.5px, 1.2vw, 11px);
+    font-weight: 400;
     line-height: 15px;
   }
 
@@ -218,8 +305,14 @@
   .weather-status p { text-wrap: balance; }
 
   .weather-copy {
-    font-size: clamp(11.5px, 1.45vw, 14px);
+    font-size: 12px;
+    font-weight: 500;
     line-height: clamp(18px, 2.2vw, 21px);
+  }
+
+  .weather-city {
+    color: var(--color-ink);
+    font-weight: 600;
   }
 
   .link-hover,
@@ -538,6 +631,7 @@ html[data-text-size="large"] .weather-status {
     height: 100%;
     min-height: 0;
     grid-template-columns: clamp(280px, 34vw, 343px) minmax(0, 1fr);
+    column-gap: 8px;
     grid-template-rows: auto minmax(0, 1fr) auto;
     grid-template-areas:
       "bio workspace"
@@ -553,32 +647,35 @@ html[data-text-size="large"] .weather-status {
 
   .profile-bio {
     grid-area: bio;
-    padding: 24px 20px 0;
+    padding: 24px 0 0 20px;
   }
 
   .profile-interests {
     grid-area: interests;
     align-self: start;
-    padding: 82px 20px 0;
+    padding: 28px 0 0 20px;
   }
 
   .profile-name { font-size: 16px; }
 
   .profile-bio-copy {
     width: 281px;
-    font-size: 14px;
-    line-height: 24.5px;
+    font-size: 13px;
+    line-height: 25px;
     text-wrap: wrap;
   }
 
   .profile-interests-list {
-    width: auto;
+    width: 323px;
     align-items: flex-start;
-    font-size: 14px;
-    line-height: 21px;
   }
 
-  .profile-divider { width: 248px; }
+  .profile-experience,
+  .profile-interest-groups,
+  .profile-divider,
+  .profile-interests .profile-divider {
+    width: 323px;
+  }
 
   .workspace-shell {
     grid-area: workspace;
@@ -661,7 +758,7 @@ html[data-text-size="large"] .weather-status {
   }
 
   .weather-copy {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 21px;
   }
 

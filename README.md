@@ -13,6 +13,7 @@ The experience uses thoughtful interactions and expressive details without makin
 - A restrained editorial visual language built around typography, spacing, and subtle motion
 - A Work section designed to grow into dedicated case-study pages
 - An animated accessibility mascot that opens visitor-controlled preferences
+- A custom 404 page with a responsive black-hole scene and a direct route home
 - Responsive behavior across desktop, tablet, mobile, keyboard, and touch input
 
 ## Current Status
@@ -26,6 +27,8 @@ The portfolio shell, responsive layout, and interaction system are implemented a
 - Vite
 - Tailwind CSS
 - React Spring
+- Three.js and GSAP for the 404 experience
+- lil-gui for optional development controls
 - Phosphor Icons
 - PostCSS and Autoprefixer
 - Oxlint
@@ -59,6 +62,11 @@ public/
   figma/       Exported interface assets
   mascot/      Accessibility mascot frames
 ```
+
+Unknown paths display the custom 404 page. Visit `/404` to preview it or `/404?debug` to adjust its scene controls locally.
+The fixed-size black hole shares a pulsing gravity field with faint page lines and the sentence. The final letters stretch and warm toward it, disappearing only at the core. Warm spill, a soft contact shadow, a white/orange/brown disk and static film grain tie the scene to the cream surface. Reduced-motion settings keep the complete sentence unstretched and the scene still. The home link and arrow stay clickable and unwarped.
+
+See [the visual checks](docs/404-world-integration.md) for screenshots and implementation notes. The current 404 enhancement targets Chromium.
 
 ## Links
 

@@ -233,9 +233,9 @@ export default function MumbaiStatus() {
           className="text-copy"
           aria-hidden="true"
         />
-        <p className="weather-copy font-medium text-copy">
+        <p className="weather-copy text-copy">
           {messageParts[0]}
-          <span className="font-medium text-copy">Mumbai</span>
+          <span className="weather-city">MUMBAI</span>
           {messageParts[1]}
         </p>
       </div>
